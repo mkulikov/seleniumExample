@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -22,7 +23,7 @@ public class ItBooksTests {
     @BeforeClass
     public void setUp() {
 
-        webDriver = new ChromeDriver();
+        webDriver = new FirefoxDriver();
         wait = new WebDriverWait(webDriver, 30, 500);
 
         website = new BooksSite(webDriver);
@@ -43,7 +44,7 @@ public class ItBooksTests {
 
     @Test
     public void testBooksSearch() {
-        Assert.assertTrue(webDriver.findElement(By.className("top")).findElements(By.tagName("tr")).size()==10);
+        website.searchResultsPage().checkBooksSearch();
     }
 
     @Test
@@ -51,8 +52,7 @@ public class ItBooksTests {
         String bookTitle = website.searchResultsPage().getBookTitle();
         website.searchResultsPage().openBookFromResultsBy(bookTitle);
         website.bookInfoPage().waitForBookInfo();
-        Assert.assertTrue(webDriver.findElement(By.cssSelector("h1[itemprop=name]")).getText().equals(bookTitle));
-
+        website.bookInfoPage().checkBookTitle(bookTitle);
     }
 
     @AfterClass

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Created by mikhail on 14.11.17.
  */
 public class MainPage {
+
     private WebDriver webDriver;
     private WebDriverWait wait;
 
@@ -22,11 +23,9 @@ public class MainPage {
     @FindBy(css = "input[type='submit']")
     WebElement searchButton;
 
-
     public MainPage(WebDriver driver) {
         webDriver = driver;
         wait = new WebDriverWait(webDriver, 30, 500);
-
         PageFactory.initElements(webDriver, this);
     }
 
